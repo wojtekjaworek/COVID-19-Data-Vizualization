@@ -5,7 +5,7 @@ import scipy as sc
 import pandas as pd
 import folium
 from flask import Flask, render_template
-
+import cartopy as cp
 
 # WHO official tracked data about new cases worldwide
 CASES_DATA_URL = 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
@@ -30,6 +30,7 @@ map = folium.Map()
 
 geoJSON_url = 'https://raw.githubusercontent.com/python-visualization/folium/master/examples/data'
 country_shapes = f'{geoJSON_url}/world-countries.json'
+
 
 
 folium.Choropleth(
