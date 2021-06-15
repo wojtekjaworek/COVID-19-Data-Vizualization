@@ -4,7 +4,7 @@ import csv
 import scipy as sc
 import pandas as pd
 import folium
-from flask import Flask, render_template
+from flask import Flask, render_template, Blueprint
 import cartopy as cp
 
 # WHO official tracked data about new cases worldwide
@@ -46,12 +46,10 @@ folium.Choropleth(
 html_map=map._repr_html_()
 
 
-app = Flask(__name__)
 
 
-@app.route('/')
+first = Blueprint('first', __name__, static_folder='Static', template_folder='Templates')
+
+@first.route('/')
 def index():
-    return render_template('index.html', map=html_map)
-
-if __name__=="__main__":
-    app.run(debug=True)
+    return render_template('index.php', map=html_map)
