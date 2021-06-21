@@ -42,17 +42,14 @@ for record in cases_from_3rd_january.iterrows():
         countries.append(record[1]['Country'])
 
 
+#
+# for record in cases_from_3rd_january.iterrows():
+#     if record[1]['Country'] == get_country:
+#         collect_cases.append(record[1]['New_cases'])
+#         collect_date.append(np.datetime64(record[1]['Date_reported']))
+#
 
-for record in cases_from_3rd_january.iterrows():
-    if record[1]['Country'] == get_country:
-        collect_cases.append(record[1]['New_cases'])
-        collect_date.append(np.datetime64(record[1]['Date_reported']))
 
-
-
-import matplotlib.dates as mdates
-
-# dummy data (Days)
 plt.plot_date(collect_date, collect_cases, 'r-')
 plt.grid()
 plt.show()
