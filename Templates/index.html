@@ -17,8 +17,9 @@
 
     <form action="" target="result" method="get">
     <select name="Country">
-    <option value="none">test</option>
-
+        {% for country in countries %}
+        <option>{{country|safe}}</option>
+        {% endfor %}
     </select>
     <p><input type="submit" value="Submit"></p>
     </form>

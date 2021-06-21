@@ -14,15 +14,7 @@ CASES_FROM_3RD_JANUARY_URL = 'https://covid19.who.int/WHO-COVID-19-global-data.c
 CASES_DATA_URL = 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
 VACCINATION_DATA_URL = 'https://covid19.who.int/who-data/vaccination-data.csv'
 
-# headers:
-# Date_reported
-# Country_code
-# Country
-# WHO_region
-# New_cases
-# Cumulative_cases
-# New_deaths
-# Cumulative_deaths
+
 
 
 cases = pd.read_csv(CASES_DATA_URL, delimiter=',', quotechar='"', encoding="utf8", header=0)
@@ -32,17 +24,7 @@ cases_from_3rd_january = pd.read_csv(CASES_FROM_3RD_JANUARY_URL, delimiter=',', 
 collect_date = []
 collect_cases = []
 
-get_country = 'Afghanistan'
 
-countries = []
-
-
-for record in cases_from_3rd_january.iterrows():
-    if record[1]['Country'] not in countries:
-        countries.append(record[1]['Country'])
-
-
-#
 # for record in cases_from_3rd_january.iterrows():
 #     if record[1]['Country'] == get_country:
 #         collect_cases.append(record[1]['New_cases'])
@@ -58,9 +40,13 @@ plt.show()
 
 second = Blueprint('second', __name__, static_folder='Static', template_folder='Templates')
 
+
+
+
+
 @second.route('/second')
 def index():
-    return render_template('index.php', countries=countries)
+    return render_template('index.html')
 
 
 

@@ -26,6 +26,10 @@ VACCINATION_DATA_URL = 'https://covid19.who.int/who-data/vaccination-data.csv'
 # Transmission Classification
 cases = pd.read_csv(CASES_DATA_URL, delimiter=',', quotechar='"', encoding="utf8", header=0)
 
+
+countries = []
+countries.extend(cases["Name"])  # list of countries names
+
 map = folium.Map()
 
 geoJSON_url = 'https://raw.githubusercontent.com/python-visualization/folium/master/examples/data'
@@ -37,9 +41,9 @@ folium.Choropleth(
     geo_data=country_shapes,
     name='choropleth COVID-19',
     data=cases,
-    columns=['Name', 'Cases - cumulative total'],
+    columns=['Name', 'Cases - newly reported in last 7 days per 100000 population'],
     key_on='feature.properties.name',
-    fill_color='YlGn',
+    fill_color='YlOrRd',
     nan_fill_color='white'
 ).add_to(map)
 
@@ -52,4 +56,4 @@ first = Blueprint('first', __name__, static_folder='Static', template_folder='Te
 
 @first.route('/')
 def index():
-    return render_template('index.php', map=html_map)
+    return render_template('index.html', map=html_map, countries=countries)
