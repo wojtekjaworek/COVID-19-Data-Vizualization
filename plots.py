@@ -1,8 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import pandas as pd
 import folium
-from flask import Flask, render_template, Blueprint
+from flask import Flask, render_template, Blueprint, send_file, redirect
+import io
 
 
 def countries_list():
@@ -37,7 +39,7 @@ def process_data(country):
 
 def create_plots(country, data):
 
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(20, 12))
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(24, 12))
 
 
 
@@ -78,23 +80,12 @@ def create_plots(country, data):
     ax4.fill_between(data['Date_reported'], data['Cumulative_deaths'], color=(0/255,0/255,0/255,50/255))
     ax4.set_ylim(ax4.get_ylim())
 
-    plt.show()
 
-
-
-
-
-
-
-
-second = Blueprint('second', __name__, static_folder='Static', template_folder='Templates')
-
-
-@second.route('/second')
-def index():
-    return render_template('index.html')
-
-
+    canvas = FigureCanvas(fig)
+    img = io.BytesIO()
+    fig.savefig(img)
+    img.seek(0)
+    return img
 
 
 
