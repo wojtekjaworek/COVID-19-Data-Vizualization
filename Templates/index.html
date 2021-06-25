@@ -1,2 +1,25 @@
 {% extends 'base.html' %}
 
+{% block world_map_options%}
+<div>
+
+    <form action="{{ url_for('handle_world_map') }}" method="post">
+    <select name="world_map_option">
+        {% for world_map_option in world_map_options %}
+        <option value="{{world_map_option|safe}}">{{world_map_option|safe}}</option>
+        {% endfor %}
+    </select>
+    <p><input type="submit" value="Submit"></p>
+    </form>
+
+
+</div>
+{% endblock %}
+
+
+
+{% block world_map %}
+<div class="main_map">
+    {{map|safe}}
+</div>
+{% endblock %}

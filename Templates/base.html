@@ -8,12 +8,10 @@
 <body>
 
 
-<!--
-<div class="main_map">
-  {{map|safe}}
-</div>
--->
 
+<div>
+    <a href="{{url_for('index')}}">HOME PAGE</a>
+</div>
 
 <div>
 
@@ -29,6 +27,8 @@
 
 </div>
 
+{% block world_map_options %}{% endblock %}
+{% block world_map %}{% endblock %}
 {% block daily_cases_plot %}{% endblock %}
 
 </body>
