@@ -6,7 +6,6 @@ from plots import create_plots, process_data, countries_list, send_file
 # get countries list depending on data source
 countries = countries_list()
 world_map_options = options_list()
-print(world_map_options)
 
 app = Flask(__name__)
 #  app.register_blueprint(first, url_prefix='')
@@ -16,14 +15,18 @@ app = Flask(__name__)
 def index():
     try: # try pass argument, in case it is not defined run with default arguments
         map = world_map(option=world_map_picked_option)
+        return render_template('index.html', countries=countries, map=map, world_map_options=world_map_options,
+                               world_map_picked_option=world_map_picked_option)
+
     except:
         map = world_map()
-    return render_template('index.html', countries=countries, map=map, world_map_options=world_map_options)
+        return render_template('index.html', countries=countries, map=map, world_map_options=world_map_options)
+
 
 
 @app.route('/plots')
 def plots():
-    return render_template('plots.html', countries=countries)
+    return render_template('plots.html', countries=countries, country=country)
 
 @app.route('/handle_plots')
 def handle_plots():

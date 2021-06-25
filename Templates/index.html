@@ -6,7 +6,11 @@
     <form action="{{ url_for('handle_world_map') }}" method="post">
     <select name="world_map_option">
         {% for world_map_option in world_map_options %}
-        <option value="{{world_map_option|safe}}">{{world_map_option|safe}}</option>
+            {% if world_map_picked_option %}
+            <option value="{{world_map_option|safe}}" selected="{{world_map_picked_option|safe}}">{{world_map_option|safe}}</option>
+            {% else %}
+            <option value="{{world_map_option|safe}}">{{world_map_option|safe}}</option>
+            {% endif %}
         {% endfor %}
     </select>
     <p><input type="submit" value="Submit"></p>
@@ -16,7 +20,14 @@
 </div>
 {% endblock %}
 
-
+{% block now_displaying %}
+<h2>Now displaying:</h2>
+{% if world_map_picked_option %}
+<p>{{world_map_picked_option|safe}}</p>
+{% else %}
+<p>{{world_map_options[0]|safe}}</p>
+{% endif %}
+{% endblock %}
 
 {% block world_map %}
 <div class="main_map">
