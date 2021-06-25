@@ -17,7 +17,7 @@ def index():
 
 @app.route('/plots')
 def plots():
-    return render_template('plots.html')
+    return render_template('plots.html', countries=countries)
 
 @app.route('/handle_plots')
 def handle_plots():
