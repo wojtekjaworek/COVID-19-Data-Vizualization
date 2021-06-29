@@ -1,10 +1,11 @@
 from flask import Flask, render_template, Blueprint, request, redirect, url_for
 #  from first import first, html_map
-from plots import second, create_plots, process_data, countries_list
+from website.plots import second, create_plots, process_data, countries_list
+from website import create_app
 
 countries = countries_list()
 
-app = Flask(__name__)
+app = create_app()
 #  app.register_blueprint(first, url_prefix='')
 app.register_blueprint(second, url_prefix='')
 
