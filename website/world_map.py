@@ -23,7 +23,7 @@ def options_list():
     return list
 
 
-def world_map(option='Cases - cumulative total'):
+def create_world_map(option='Cases - cumulative total'):
     # WHO official tracked data about new cases worldwide
     CASES_DATA_URL = 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
     VACCINATION_DATA_URL = 'https://covid19.who.int/who-data/vaccination-data.csv'
@@ -66,7 +66,4 @@ def world_map(option='Cases - cumulative total'):
 
     html_map=map._repr_html_()
 
-
     return html_map
-
-
