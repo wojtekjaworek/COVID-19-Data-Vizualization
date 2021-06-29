@@ -10,12 +10,19 @@
 
 <div>
     <form action="{{ url_for('get_country_for_plots') }}" method="post">
-    <select name="Country">
-        {% for country in countries %}
-        <option value="{{country|safe}}">{{country|safe}}</option>
+        <select name="Country">
+            {% for country in countries %}
+            <option value="{{country|safe}}">{{country|safe}}</option>
+            {% endfor %}
+        </select>
+        {% for i in range(4) %}
+        <select name="Option{{i}}">
+            {% for option in options_for_plots %}
+            <option value="{{option|safe}}">{{option|safe}}</option>
+            {% endfor %}
+        </select>
         {% endfor %}
-    </select>
-    <p><input type="submit" value="Submit"></p>
+        <p><input type="submit" value="Submit"></p>
     </form>
 </div>
 
@@ -32,6 +39,7 @@
 
 
 {% block world_map %}{% endblock %}
+
 {% block plots %}{% endblock %}
 
 
