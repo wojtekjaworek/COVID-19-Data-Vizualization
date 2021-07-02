@@ -6,9 +6,10 @@ import pandas as pd
 import folium
 from flask import Flask, render_template, Blueprint
 import cartopy as cp
+import requests
 
 
-def options_list():
+def world_map_options_list():
     list = [
         'Cases - cumulative total',
         'Cases - cumulative total per 100000 population',
@@ -52,7 +53,7 @@ def create_world_map(option='Cases - cumulative total'):
     geoJSON_url = 'https://raw.githubusercontent.com/python-visualization/folium/master/examples/data'
     country_shapes = f'{geoJSON_url}/world-countries.json'
 
-
+    countries = requests.get(country_shapes).json()
 
     folium.Choropleth(
         geo_data=country_shapes,
@@ -60,9 +61,29 @@ def create_world_map(option='Cases - cumulative total'):
         data=cases,
         columns=['Name', option],
         key_on='feature.properties.name',
-        fill_color='YlOrRd',
-        nan_fill_color='white'
+        fill_color='PuRd',
+        nan_fill_color='white',
     ).add_to(map)
+
+
+
+
+
+
+    #  style for geoJSON overlay set to transparent
+
+    style = {'fillColor': '#00000000', 'color': '#00000000'}
+
+    for country in countries['features']:
+        folium.GeoJson(
+            data=country,
+            tooltip=country['properties']['name'],
+            style_function=lambda x: style
+        ).add_to(map)
+
+
+
+
 
     html_map=map._repr_html_()
 

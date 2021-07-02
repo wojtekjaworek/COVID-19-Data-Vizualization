@@ -2,10 +2,10 @@ from flask import Flask, render_template, Blueprint, request, redirect, url_for,
 #  from first import first, html_map
 from website.plots import generate_plots, process_data, countries_list, plot_options
 from website import create_app
-from website.world_map import options_list, create_world_map
+from website.world_map import world_map_options_list, create_world_map
 
 countries = countries_list()
-options = options_list()
+options = world_map_options_list()
 options_for_plots = plot_options()
 
 app = create_app()
@@ -13,8 +13,10 @@ app = create_app()
 
 @app.route('/')
 def index():
-
-    world_map = create_world_map(option=option_for_world_map)
+    try:
+        world_map = create_world_map(option=option_for_world_map)
+    except:
+        world_map = create_world_map()
     return render_template('index.html', countries=countries, options=options, options_for_plots=options_for_plots, world_map=world_map)
 
 
